@@ -1,0 +1,24 @@
+{
+  "name": "owos",
+  "version": "1.0.0",
+  "description": "owos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eiks-exe/owos.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Eiks-exe/owos/issues"
+  },
+  "homepage": "https://github.com/Eiks-exe/owos#readme",
+  "dependencies": {
+    "file-system": "^2.2.2",
+    "puppeteer": "^5.5.0"
+  }
+}
