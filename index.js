@@ -13,22 +13,29 @@ const fs = require('fs');
         const result = await page.evaluate((annee) => {
                 let titres = document.querySelectorAll(".wikitable tr")
                 console.log(annee)
-                return Array.prototype.map.call(titres, function (titre) {
+
+                let chMap = Array.prototype.map.call(titres, function (titre) {
 
                     let title = titre.querySelector("td:nth-child(0n+4)")
                     let author = titre.querySelector("td:nth-child(0n+3)")
-                    if (title !== null) {
-                        return {auteur: author.innerText, titre: title.innerText, annee: annee};
+                    if (title != null) {
+
+                        return {auteur: author.textContent, titre: title.textContent, annee: annee};
+
                     }
 
                 }, annee)
+                return chMap.filter(element => element != null)
             },
             annee
         )
 
         await chanteurs.push(result);
-        await console.log(chanteurs);
-        fs.writeFile('./src/test.txt', JSON.stringify(chanteurs) , function (err) {})
+        await console.log(result);
+        fs.writeFile('./src/test.txt', (JSON.stringify(chanteurs)) , function (err) {})
+
+
+
     }
 
 
