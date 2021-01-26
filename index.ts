@@ -7,6 +7,21 @@ class Scrapper {
     constructor() {
         this.annee = 1955
     }
+
+    evaluate(an) : object {
+        let singles = document.querySelectorAll(".wikitable:first-child tr")
+        let res = [];
+        for (let i = 1 ; i <= singles.length ; i++){
+            let titre = singles[i].querySelector("td:nth-child(0n+4)")
+            let auteur = singles[i].querySelector("td:nth-child(0n+3)")
+            console.log('tttt')
+            if (titre !== null) {
+                res.push({auteur: auteur.textContent, titre: titre.textContent, annee: an}) ;
+            }
+        }
+        return res ;
+    }
+
     async extract(url) : Promise<any>{
         try {
             let data = [];
@@ -18,18 +33,7 @@ class Scrapper {
             for (this.annee ; this.annee <= 1958 ; this.annee = this.annee + 1){
                 await page.goto(url + this.annee)
                 let an = this.annee
-                const resultat = page.evaluate(function (an){
-                    let singles = document.querySelectorAll(".wikitable tr")
-
-                    return singles.forEach(function (single){
-                        let titre = single.querySelector("td:nth-child(0n+4)")
-                        let auteur = single.querySelector("td:nth-child(0n+3)")
-                        
-                        if (titre !== null){
-                            return {auteur : auteur.innerHTML, titre : titre.innerHTML, annee : an}
-                        }
-                    })
-                }, an);
+                const resultat = page.evaluate(this.evaluate , an);
                 await data.push(resultat);
                 await console.log(resultat);
                 await console.log(JSON.stringify(data));

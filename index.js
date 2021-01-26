@@ -42,6 +42,19 @@ var Scrapper = /** @class */ (function () {
     function Scrapper() {
         this.annee = 1955;
     }
+    Scrapper.prototype.evaluate = function (an) {
+        var singles = document.querySelectorAll(".wikitable:first-child tr");
+        var res = [];
+        for (var i = 1; i <= singles.length; i++) {
+            var titre = singles[i].querySelector("td:nth-child(0n+4)");
+            var auteur = singles[i].querySelector("td:nth-child(0n+3)");
+            console.log('tttt');
+            if (titre !== null) {
+                res.push({ auteur: auteur.textContent, titre: titre.textContent, annee: an });
+            }
+        }
+        return res;
+    };
     Scrapper.prototype.extract = function (url) {
         return __awaiter(this, void 0, void 0, function () {
             var data, browser, page, an, resultat, err_1;
@@ -65,17 +78,7 @@ var Scrapper = /** @class */ (function () {
                     case 4:
                         _a.sent();
                         an = this.annee;
-                        resultat = page.evaluate(function (an) {
-                            var singles = document.querySelectorAll(".wikitable tr");
-                            console.log(an);
-                            return singles.forEach(function (single) {
-                                var titre = single.querySelector("td:nth-child(0n+4)");
-                                var auteur = single.querySelector("td:nth-child(0n+3)");
-                                if (titre !== null) {
-                                    return { auteur: auteur.innerHTML, titre: titre.innerHTML, annee: an };
-                                }
-                            });
-                        }, an);
+                        resultat = page.evaluate(this.evaluate, an);
                         return [4 /*yield*/, data.push(resultat)];
                     case 5:
                         _a.sent();
