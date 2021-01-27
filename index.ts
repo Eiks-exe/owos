@@ -8,21 +8,23 @@ class Scrapper {
         this.annee = 1955
     }
 
-    evaluate(an) : object {
-        let singles = document.querySelectorAll(".wikitable:first-child tr")
-        let res = [];
-        for (let i = 1 ; i <= singles.length ; i++){
-            let titre = singles[i].querySelector("td:nth-child(0n+4)")
-            let auteur = singles[i].querySelector("td:nth-child(0n+3)")
-            console.log('tttt')
-            if (titre !== null) {
-                res.push({auteur: auteur.textContent, titre: titre.textContent, annee: an}) ;
+    evaluate(an: any) : any {
+        let singles = document.querySelectorAll(".wikitable tr")
+        let res: any[] = [];
+        
+        for (let i = 1 ; i < singles.length; i++) {
+            let titre = singles[i].querySelector("td:nth-child(0n+3)")
+            if (titre != null){
+                res.push({'titre' : titre?.textContent}) 
+                console.log('ok');
             }
+            console.log(res)
+            
         }
-        return res ;
+        return res;
     }
 
-    async extract(url) : Promise<any>{
+    async extract(url: string) : Promise<void>{
         try {
             let data = [];
             const browser = await puppeteer.launch({headless : false});
@@ -37,7 +39,7 @@ class Scrapper {
                 await data.push(resultat);
                 await console.log(resultat);
                 await console.log(JSON.stringify(data));
-                fs.writeFile('./src/Singles.txt', JSON.stringify(data), function (err) {
+                fs.writeFile('./singles.txt', JSON.stringify(data), function (err) {
                 })
             };
             await browser.close()

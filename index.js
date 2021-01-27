@@ -43,15 +43,15 @@ var Scrapper = /** @class */ (function () {
         this.annee = 1955;
     }
     Scrapper.prototype.evaluate = function (an) {
-        var singles = document.querySelectorAll(".wikitable:first-child tr");
+        var singles = document.querySelectorAll(".wikitable tr");
         var res = [];
-        for (var i = 1; i <= singles.length; i++) {
-            var titre = singles[i].querySelector("td:nth-child(0n+4)");
-            var auteur = singles[i].querySelector("td:nth-child(0n+3)");
-            console.log('tttt');
-            if (titre !== null) {
-                res.push({ auteur: auteur.textContent, titre: titre.textContent, annee: an });
+        for (var i = 1; i < singles.length; i++) {
+            var titre = singles[i].querySelector("td:nth-child(0n+3)");
+            if (titre != null) {
+                res.push({ 'titre': titre === null || titre === void 0 ? void 0 : titre.textContent });
+                console.log('ok');
             }
+            console.log(res);
         }
         return res;
     };
@@ -88,7 +88,7 @@ var Scrapper = /** @class */ (function () {
                         return [4 /*yield*/, console.log(JSON.stringify(data))];
                     case 7:
                         _a.sent();
-                        fs.writeFile('./src/Singles.txt', JSON.stringify(data), function (err) {
+                        fs.writeFile('./singles.txt', JSON.stringify(data), function (err) {
                         });
                         _a.label = 8;
                     case 8:

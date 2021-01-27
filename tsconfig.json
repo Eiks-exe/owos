@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ESNext",
+    "module": "commonjs",
     "watch": true,
-    "lib": ["DOM" , "ES2019"]
+    "lib": ["DOM" , "ES2018"],
+    "sourceMap": true,
+    "allowJs": true,
+    "strict": true,
   }
 }
