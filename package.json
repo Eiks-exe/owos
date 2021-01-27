@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Eiks-exe/owos#readme",
   "dependencies": {
     "file-system": "^2.2.2",
+    "prettier": "^2.2.1",
     "puppeteer": "^5.5.0"
   }
 }
