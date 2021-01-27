@@ -8,7 +8,7 @@ const fs = require('fs');
     const page = await browser.newPage();
     await page.on('console', consoleObj => console.log(consoleObj.text()));
 
-    for (annee ; annee <= 2021; annee++ ){
+    for (annee ; annee <= 1958; annee++ ){
         await page.goto(`https://fr.wikipedia.org/wiki/Liste_des_titres_musicaux_num%C3%A9ro_un_en_France_en_${annee}`)
         const result = await page.evaluate((annee) => {
                 let titres = document.querySelectorAll(".wikitable tr")
@@ -32,7 +32,7 @@ const fs = require('fs');
 
         await chanteurs.push(result);
         await console.log(result);
-        fs.writeFile('./src/test.txt', (JSON.stringify(chanteurs)) , function (err) {})
+        fs.writeFile('./test.txt', (JSON.stringify(result)) , function (err) {})
 
 
 
